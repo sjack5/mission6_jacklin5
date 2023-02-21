@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Movie Collection";
+}
+
+@model List<MovieForm>
+
+<!--Adds all columns to our table-->
+<table class="table table-bordered">
+    <thead class="font-weight-bold">
+        <tr>
+        <td>Category</td>
+        <td>Title</td>
+        <td>Year</td>
+        <td>Director</td>
+        <td>Rating</td>
+        <td>Edited</td>
+        <td>Lent To</td>
+        <td>Notes</td>
+        </tr>
+    </thead>
+    
+    <!--Loops through and adds all the information found in our model-->
+    <tbody>
+        @foreach (var x in Model)
+            {
+        <tr>
+            <td>@x.Category</td>
+            <td>@x.Title</td>
+            <td>@x.Year</td>
+            <td>@x.Director</td>
+            <td>@x.Rating</td>
+            <td>@x.Edited</td>
+            <td>@x.Lent</td>
+            <td>@x.Notes</td>
+
+            <!--Add edit and delete functionality to the form-->
+            <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@x.MovieID">Edit</a></td>
+            <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.MovieID">Delete</a></td>
+        </tr>
+            }
+    </tbody>
+
+</table>

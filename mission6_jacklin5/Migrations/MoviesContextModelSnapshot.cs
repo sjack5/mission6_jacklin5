@@ -15,15 +15,65 @@ namespace mission6_jacklin5.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("mission6_jacklin5.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryID = 1,
+                            CategoryName = "Action"
+                        },
+                        new
+                        {
+                            CategoryID = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryID = 3,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryID = 4,
+                            CategoryName = "Horror"
+                        },
+                        new
+                        {
+                            CategoryID = 5,
+                            CategoryName = "Animated"
+                        },
+                        new
+                        {
+                            CategoryID = 6,
+                            CategoryName = "Children's"
+                        },
+                        new
+                        {
+                            CategoryID = 7,
+                            CategoryName = "Romance"
+                        });
+                });
+
             modelBuilder.Entity("mission6_jacklin5.Models.MovieForm", b =>
                 {
                     b.Property<int>("MovieID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -52,13 +102,15 @@ namespace mission6_jacklin5.Migrations
 
                     b.HasKey("MovieID");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("Movie");
 
                     b.HasData(
                         new
                         {
                             MovieID = 1,
-                            Category = "Romance",
+                            CategoryID = 7,
                             Director = "Rob Reiner",
                             Edited = false,
                             Lent = " ",
@@ -70,7 +122,7 @@ namespace mission6_jacklin5.Migrations
                         new
                         {
                             MovieID = 2,
-                            Category = "Animated, Comedy",
+                            CategoryID = 6,
                             Director = "Tom McGrath",
                             Edited = false,
                             Lent = "Brady Jacklin",
@@ -82,7 +134,7 @@ namespace mission6_jacklin5.Migrations
                         new
                         {
                             MovieID = 3,
-                            Category = "Animated, Comedy",
+                            CategoryID = 2,
                             Director = "Rob Minkoff",
                             Edited = false,
                             Lent = "Kimball Shupe",
@@ -91,6 +143,15 @@ namespace mission6_jacklin5.Migrations
                             Title = "Mr. Peabody and Sherman",
                             Year = (ushort)2014
                         });
+                });
+
+            modelBuilder.Entity("mission6_jacklin5.Models.MovieForm", b =>
+                {
+                    b.HasOne("mission6_jacklin5.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

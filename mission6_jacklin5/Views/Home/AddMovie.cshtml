@@ -7,8 +7,17 @@
 <h1>Let's add some bangers</h1>
 
 <form method="post">
-    <label asp-for="Category">Category:</label>
-    <input asp-for="Category" /><br />
+    <div asp-validation-summary="All"></div>
+
+    <label asp-for="CategoryID">Category:</label>
+    <select asp-for="CategoryID">
+        <option value="">Select a Category</option>
+        @foreach (Category c in ViewBag.Category)
+            {
+                <option value="@c.CategoryID">@c.CategoryName</option>
+            }
+    </select><br />
+
 
     <label asp-for="Title">Title:</label>
     <input asp-for="Title" /><br />
@@ -38,6 +47,8 @@
 
     <label asp-for="Notes">Notes:</label>
     <input asp-for="Notes" /><br />
+
+    <input type="hidden" asp-for="MovieID" />   <!--Error with Edit functionality-->
 
     <button type="submit">Add Movie</button>
 </form>
